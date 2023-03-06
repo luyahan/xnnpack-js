@@ -25,7 +25,7 @@ ExternalProject_Add(xnnpack
     #   | awk '{print $3}' \
     #   | sed -e 's/\"//g' -e 's/,//g' -e 's/^/\/\/:/g'
     BUILD_COMMAND  cd ${CMAKE_CURRENT_SOURCE_DIR}/xnnpack
-                   && bazel --output_user_root=build-user-output build -c opt --config=wasm
+                   && bazel --output_user_root=build-user-output build  -c opt --config=wasm
                       //:qs8_dwconv_bench.js
                        //:qs8_f32_vcvt_bench.js
                        //:qs8_gemm_bench.js
