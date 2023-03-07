@@ -47,7 +47,7 @@ index cd8960ffa..5d3e685f4 100644
 -android_sdk_repository(name = "androidsdk")
 +#android_sdk_repository(name = "androidsdk")
 diff --git a/build_defs.bzl b/build_defs.bzl
-index b8217a18d..da232966e 100644
+index b8217a18d..bd0fa0c2a 100644
 --- a/build_defs.bzl
 +++ b/build_defs.bzl
 @@ -380,7 +380,7 @@ def xnnpack_benchmark(name, srcs, copts = [], deps = [], tags = []):
@@ -60,10 +60,10 @@ index b8217a18d..da232966e 100644
          copts = xnnpack_std_cxxopts() + [
              "-Iinclude",
 diff --git a/emscripten.bzl b/emscripten.bzl
-index f1557a7b1..e8ec40034 100644
+index f1557a7b1..747b172c4 100644
 --- a/emscripten.bzl
 +++ b/emscripten.bzl
-@@ -25,12 +25,20 @@ def xnnpack_emscripten_benchmark_linkopts():
+@@ -25,12 +25,22 @@ def xnnpack_emscripten_benchmark_linkopts():
      """Emscripten-specific linkopts for benchmarks."""
      return [
          "-s ASSERTIONS=1",
@@ -71,12 +71,11 @@ index f1557a7b1..e8ec40034 100644
          "-s ENVIRONMENT=node,shell,web",
 -        "-s ERROR_ON_UNDEFINED_SYMBOLS=1",
 -        "-s EXIT_RUNTIME=1",
--        "-s ALLOW_MEMORY_GROWTH=1",
-+       "-s ALLOW_MEMORY_GROWTH=1",
+         "-s ALLOW_MEMORY_GROWTH=1",
          "-s TOTAL_MEMORY=536870912",  # 512M
--        "--pre-js $(location :preamble.js.lds)",
 +        "-s USE_PTHREADS=0",
-+        "-s STANDALONE_WASM=1",
++        "-O3",
+         "--pre-js $(location :preamble.js.lds)",
 +        "-Wno-unused",
 +        "-Wno-unused-variable",
 +        "-Wno-unused-command-line-argument",
@@ -84,6 +83,7 @@ index f1557a7b1..e8ec40034 100644
 +        "-Wl,--export=__data_end",
 +        "-Wl,--export=malloc",
 +        "-Wl,--export=free",
++        "-Wno-error=deprecated",
 +        "--oformat=js",
      ]
  

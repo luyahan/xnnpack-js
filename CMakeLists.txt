@@ -27,6 +27,7 @@ ExternalProject_Add(xnnpack
     BUILD_COMMAND  cd ${CMAKE_CURRENT_SOURCE_DIR}/xnnpack
                    && bazel --output_user_root=build-user-output build -c opt --config=wasm
                        //:f32_gemm_e2e_bench.tar
+                       //:f32_gemm_bench.tar
     INSTALL_COMMAND ${CMAKE_COMMAND} -E copy_directory
                       ${CMAKE_CURRENT_SOURCE_DIR}/xnnpack/bazel-out/wasm-opt/bin/
                       ${CMAKE_BINARY_DIR}/wasm-opt
